@@ -3,6 +3,8 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
+
+
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from scipy.stats import pearsonr, spearmanr, ttest_ind
@@ -338,3 +340,28 @@ async def upload_csv(
         ) from exc
     finally:
         await file.close()
+
+        
+@app.get("/api/bengaluru/models")
+def bengaluru_models() -> dict[str, Any]:
+    try:
+        return get_bengaluru_models()
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Bengaluru model training failed: {exc}",
+        ) from exc
+
+
+@app.get("/api/bengaluru/options")
+def bengaluru_options() -> dict[str, Any]:
+    try:
+        return get_bengaluru_options()
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Could not load Bengaluru options: {exc}",
+        ) from exc
+
+
+

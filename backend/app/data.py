@@ -13,6 +13,7 @@ NUMERIC_FEATURES = [
     "beds",
     "minimum_nights",
     "availability_365",
+    
     "number_of_reviews",
     "reviews_per_month",
     "host_listings_count",
